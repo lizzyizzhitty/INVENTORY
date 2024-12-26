@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES Marketing Inventory</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 150px;
+        }
+
+        .user {
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .btn.active {
+            background-color: limegreen;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #00ff00;
+        }
+
+       .order-details {
+           margin-top: 20px; 
+           background-color: #eee; 
+           padding: 20px; 
+           border-radius: 8px; 
+       }
+
+       form label { 
+           display: inline-block; 
+           width: 150px; 
+           margin-bottom: 10px; 
+       }
+
+       form input { 
+           padding: 5px; 
+           margin-bottom: 10px; 
+           width: calc(100% - 170px); 
+       }
+
+       .green-btn, .red-btn, .print-btn { 
+           color: #fff; 
+           border: none; 
+           padding: 10px 15px; 
+           cursor: pointer; 
+           margin: 5px 0; 
+       }
+
+       .green-btn { 
+           background-color: green; 
+       }
+
+       .red-btn { 
+           background-color: red; 
+       }
+
+       .print-btn { 
+           background-color: purple; 
+       }
+   </style>
+</head>
+<body>
+   <div class="dashboard">
+      <div class="header">
+          <img src="logo.png" alt="DES Marketing Logo" class="logo">
+          <span class="user">User: Cheezee (ADMINISTRATOR)</span>
+      </div>
+      <nav>
+        <button class="btn" onclick="window.location.href='dashboard.html'">Home</button>
+        <button class="btn" onclick="window.location.href='product.html'">Products</button>
+        <button class="btn" onclick="window.location.href='customer.html'">Customers</button>
+        <button class="btn active" onclick="window.location.href='order.html'">Orders</button>
+        <button class="btn" onclick="window.location.href='user.html'">Users</button>
+    </nav>
+    
+      <h2>ORDERS</h2>
+      <table id="orders-table">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody id="orders-body"></tbody>
+      </table>
+
+      <h3>CUSTOMER ORDER LIST</h3>
+      <table id="customer-order-list">
+          <!-- Reserved for future use -->
+      </table>
+
+      <div class="order-details">
+          <h3>Enter Order Details</h3>
+          <form id="order-form">
+              <label for="orderId">Order ID:</label>
+              <input type="text" id="orderId" required><br>
+
+              <label for="customerId">Customer ID:</label>
+              <input type="text" id="customerId" required><br>
+
+              <label for="name">Name:</label>
+              <input type="text" id="name" required><br>
+
+              <label for="productId">Product ID:</label>
+              <input type="text" id="productId" required><br>
+
+              <label for="productName">Product Name:</label>
+              <input type="text" id="productName" required><br>
+
+              <label for="quantity">Quantity:</label>
+              <input type="number" id="quantity" required><br>
+
+              <div class="buttons">
+                  <button type="button" id="add-bill" class="green-btn">Add Bill</button>
+                  <button type="button" id="delete" class="red-btn">Delete</button>
+              </div>
+
+              <!-- Amount field -->
+              <label for="amount">Amount:</label>
+              <input type="text" id="amount" disabled><br>
+
+              <!-- Print button -->
+              <button type="button" id="print" class="print-btn">Print</button>
+
+          </form>
+      </div>
+
+   </div>
+
+   <div class="main">
+    <table id="orders-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+    </table>
+</div>
+
+<script>
+const addBillBtn = document.getElementById("add-bill");
+        addBillBtn.addEventListener("click", () => {
+            const orderId = document.getElementById("orderId").value.trim();
+            const productName = document.getElementById("productName").value.trim();
+            const quantity = parseInt(document.getElementById("quantity").value.trim());
+
+            if (!orderId || !productName || isNaN(quantity) || quantity <= 0) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            const price = 50; // Assuming a fixed price for simplicity
+            const total = price * quantity;
+
+            const row = `<tr>
+                <td>${orderId}</td>
+                <td>${productName}</td>
+                <td>${price}</td>
+                <td>${quantity}</td>
+                <td>${total}</td>
+            </tr>`;
+            document.getElementById("orders-body").innerHTML += row;
+
+            document.getElementById("order-form").reset();
+        });
+</script>
+
+</body>
+</html>
+

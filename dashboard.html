@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar img {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .menu button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .sidebar .menu .home {
+            background-color: limegreen;
+        }
+
+        .sidebar .menu .products,
+        .sidebar .menu .customers,
+        .sidebar .menu .orders,
+        .sidebar .menu .users {
+            background-color: deepskyblue;
+        }
+
+        .sidebar .menu .signout {
+            background-color: red;
+        }
+
+        .sidebar .menu button:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content .header {
+            background-color: #ccc;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content .header .user {
+            font-size: 18px;
+        }
+
+        .content .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+        }
+
+        .content .main .info {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content .main .info img {
+            max-width: 100%;
+        }
+
+        .content .main .details {
+            flex: 1;
+            padding: 10px;
+            background-color: #f7f7f7;
+            border-left: 1px solid #ccc;
+            overflow-y: auto;
+        }
+
+        .content .main .details h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .content .main .details p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="logo.png" alt="DES Marketing, Inc." />
+        <div class="menu">
+            <button class="home" onclick="window.location.href='dashboard.html'">Home</button>
+            <button class="products" onclick="window.location.href='product.html'">Products</button>
+            <button class="customers" onclick="window.location.href='customer.html'">Customers</button>
+            <button class="orders" onclick="window.location.href='order.html'">Orders</button>
+            <button class="users" onclick="window.location.href='user.html'">Users</button>
+        </div>
+        
+        <button class="logout" onclick="window.location.href='login.html'">Log Out</button>
+    </div>
+    <div class="content">
+        <div class="header">
+            <span class="user">User: CHEEZEE GENE (ADMINISTRATOR)</span>
+            <span class="date-time">30-11-2024 | 09:06:44</span>
+        </div>
+        <div class="main">
+            <div class="info">
+                <img src="frame.png" alt="DES Marketing, Inc. Logo" />
+            </div>
+            <div class="details">
+                <h2>Business Info</h2>
+                <p><strong>Operating Hours:</strong></p>
+                <p>Mon-Sat: 8:00 AM - 5:30 PM</p>
+                <p>Sun: Closed</p>
+                <p><strong>Payment Methods:</strong></p>
+                <p>Cash, Credit Card, Debit Card, Online Payment</p>
+                <p><strong>Parking Options:</strong> Free parking onsite</p>
+                <p><strong>Contact:</strong></p>
+                <p>SMART: 0919-911-3802</p>
+                <p>Globe: 0917-634-7752</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function signOut() {
+    try {
+        const response = await fetch('/api/auth/signout', { method: 'POST' });
+        if (response.ok) {
+            window.location.href = "login.html"; // Redirect to login page
+        } else {
+            alert("Logout failed, please try again.");
+        }
+    } catch (error) {
+        console.error("Error during sign out:", error);
+        alert("An error occurred while logging out.");
+    }
+}
+
+    </script>
+</body>
+</html>

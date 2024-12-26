@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #ffffff;
+            border-bottom: 3px solid #000;
+        }
+
+        .logo {
+            height: 70px;
+        }
+
+        .user-info {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: #333;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+            padding: 10px 0;
+            background-color: #ffffff;
+        }
+
+        .nav button {
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .nav button.active {
+            background-color: #32cd32;
+            color: white;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .main {
+            flex: 3;
+            background-color: #000;
+            height: 450px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 30px; /* Increased padding for spacing */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Increased margin for spacing */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .buttons button {
+            flex: 1;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .buttons .add {
+            background-color: #32cd32;
+        }
+
+        .buttons .update {
+            background-color: #32cd32;
+        }
+
+        .buttons .delete {
+            background-color: #ff0000;
+        }
+
+        .buttons .cancel {
+            background-color: #ffa500;
+        }
+
+        .customer-table {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+
+        .customer-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .customer-table th, 
+        .customer-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .customer-table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .customer-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .customer-table tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="logo.png" alt="DES Marketing Logo" class="logo">
+        <div class="user-info">
+            <div class="user-icon"></div>
+            <span>User: Cheezee (ADMINISTRATOR)</span>
+        </div>
+    </div>
+
+    <div class="nav">
+        <button onclick="window.location.href='dashboard.html'">Home</button>
+        <button onclick="window.location.href='product.html'">Products</button>
+        <button class="active" onclick="window.location.href='customer.html'">Customers</button>
+        <button onclick="window.location.href='order.html'">Orders</button>
+        <button onclick="window.location.href='user.html'">Users</button>
+    </div>
+
+    <div class="page-title">Customers</div>
+
+    <div class="content">
+        <div class="main">
+            <div class="customer-table">
+                <table id="customerTable">
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Phone</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Customer rows will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <h3>Enter Customer Details</h3>
+            <div class="form-group">
+                <label for="customer-id">Customer ID:</label>
+                <input type="text" id="customer-id" placeholder="Enter Customer ID">
+            </div>
+            <div class="form-group">
+                <label for="customer-name">Name:</label>
+                <input type="text" id="customer-name" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" placeholder="Enter Age">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" placeholder="Enter Phone Number">
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="text" id="gender" placeholder="Enter Gender">
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" placeholder="Enter Address">
+            </div>
+            <div class="buttons">
+                <button class="add">Add</button>
+                <button class="update">Update</button>
+                <button class="delete">Delete</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const customerTable = document.querySelector('#customerTable tbody');
+        const customerIdField = document.getElementById('customer-id');
+        const customerNameField = document.getElementById('customer-name');
+        const ageField = document.getElementById('age');
+        const phoneField = document.getElementById('phone');
+        const genderField = document.getElementById('gender');
+        const addressField = document.getElementById('address');
+
+        // Add a new customer
+        document.querySelector('.add').addEventListener('click', () => {
+            const customerId = customerIdField.value.trim();
+            const customerName = customerNameField.value.trim();
+            const age = ageField.value.trim();
+            const phone = phoneField.value.trim();
+            const gender = genderField.value.trim();
+            const address = addressField.value.trim();
+
+            if (!customerId || !customerName || !age || !phone || !gender || !address) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${customerId}</td>
+                <td>${customerName}</td>
+                <td>${age}</td>
+                <td>${phone}</td>
+                <td>${gender}</td>
+                <td>${address}</td>
+                <td>
+                    <button class="delete" style="background-color: #ff0000; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 3px;">Delete</button>
+                </td>
+            `;
+            customerTable.appendChild(newRow);
+
+            // Add delete functionality to the new row
+            newRow.querySelector('.delete').addEventListener('click', () => {
+                customerTable.removeChild(newRow);
+            });
+
+            // Clear fields after adding
+            customerIdField.value = '';
+            customerNameField.value = '';
+            ageField.value = '';
+            phoneField.value = '';
+            genderField.value = '';
+            addressField.value = '';
+        });
+
+        // Reset form fields
+        document.querySelector('.cancel').addEventListener('click', () => {
+            customerIdField.value = '';
+            customerNameField.value = '';
+            ageField.value = '';
+            phoneField.value = '';
+            genderField.value = '';
+            addressField.value = '';
+        });
+    </script>
+
+</body>
+</html>

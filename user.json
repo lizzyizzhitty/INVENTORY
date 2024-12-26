@@ -1,0 +1,5 @@
+[
+    { "ID": 1, "Name": "Admin", "Phone": "+1-800-555-0199" },
+    { "ID": 2, "Name": "John Doe", "Phone": "123-456-7890" },
+    { "ID": 3, "Name": "Jane Smith", "Phone": "234-567-8901" }
+]

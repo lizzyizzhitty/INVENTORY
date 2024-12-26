@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES Marketing Login</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8; /* Light gray-blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container Styling */
+        .container {
+            display: flex;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            width: 800px;
+            max-width: 90%;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            flex: 1;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Login Section */
+        .login-section {
+            flex: 1;
+            padding: 40px 30px;
+            background-color: #e6f7ff; /* Light blue background */
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: #d9363e;
+        }
+
+        /* Login Heading */
+        .login-section h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #bfbfbf;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1890ff; /* Highlighted blue */
+            box-shadow: 0 0 5px rgba(24, 144, 255, 0.5);
+        }
+
+        /* Checkbox Styling */
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox input {
+            margin-right: 10px;
+        }
+
+        /* Button Styling */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cancel-btn,
+        .login-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cancel-btn {
+            background-color: #ff4d4f;
+        }
+
+        .cancel-btn:hover {
+            background-color: #d9363e;
+        }
+
+        .login-btn {
+            background-color: #52c41a;
+        }
+
+        .login-btn:hover {
+            background-color: #389e0d;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .logo-section {
+                display: none; /* Hide the logo on small screens */
+            }
+
+            .login-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <img src="frame.png" alt="DES Marketing, Inc." class="logo">
+        </div>
+
+        <!-- Login Section -->
+        <div class="login-section">
+            <h1>Sign In</h1>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter Username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter Password" required>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember Me</label>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" class="cancel-btn" onclick="resetForm()">Cancel</button>
+                    <button type="button" class="login-btn" onclick="window.location.href='dashboard.html'">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+       // Submit handler in your HTML file's JavaScript section
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault(); // Prevent actual form submission
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Send login request to backend
+    const response = await fetch('https://localhost:5001/api/authentication/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ Username: username, Password: password })
+    });
+
+    const result = await response.json();
+    
+    if (response.ok) {
+        alert(result.Message);
+    } else {
+        alert(result.Message);
+    }
+});
+
+    </script>
+</body>
+</html>
